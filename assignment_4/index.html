@@ -1,0 +1,64 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Assignment 4</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <style>
+        #effect {
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        .highlight {
+            width: 100px;
+            background-color: red;
+        }
+
+        .shrink {
+            background-color: gray;
+            width: 50px;
+        }
+
+        .no-class {
+            width: 100px;
+            height: 200px;
+            background-color: pink;
+        }
+
+        .borderBlueSolid { border: 1px solid blue; }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <button @click="startEffect">Start effect</button>
+            <div id="effect" :class="cssClass"></div>
+            <hr>
+            <div :class="[noClass, cssClass, borderBlue]">Got no class</div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                cssClass: 'highlight',
+                noClass: 'no-class',
+                borderBlue: 'borderBlueSolid'
+            },
+            methods: {
+                startEffect: function () {
+                    var vm = this;
+                    setInterval(function () {
+                        vm.cssClass = vm.cssClass === 'highlight' ? 'shrink' : 'highlight';
+                    }, 5000)
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
