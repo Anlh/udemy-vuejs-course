@@ -1,0 +1,47 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Assignment 5</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1st -->
+        <div>
+            <button @click="show = !show">Toggle</button>
+            <p v-if="show">Show this</p>
+            <p v-else>... or this</p>
+            <p v-show="show">Also show this</p>
+        </div>
+        <hr>
+        <!-- 2nd -->
+        <div>
+            <ul>
+                <li v-for="movie in movies">
+                    <span v-for="(value, keyName, i) in movie">
+                        {{i}} - {{keyName}}: {{value}} <br>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: true,
+                movies: [
+                    {title: 'Lord of the rings', year: 2000, producer: 'Peter Jackson'},
+                    {title: 'Matrix', year: 4000, producer: 'unknown'}
+                ]
+            }
+        });
+    </script>
+</body>
+
+</html>
