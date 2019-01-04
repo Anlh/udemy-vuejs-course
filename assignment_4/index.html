@@ -29,6 +29,17 @@
         }
 
         .borderBlueSolid { border: 1px solid blue; }
+        .colorWhite {color: white};
+        .visible {width: 200px; height: 200px;}
+        .progress-bar {
+            background-color: gray;
+            width: 100px;
+            height: 30px;
+        }
+        .current-progress {
+            height: 30px;
+            background-color: green;
+        }
     </style>
 </head>
 
@@ -38,7 +49,25 @@
             <button @click="startEffect">Start effect</button>
             <div id="effect" :class="cssClass"></div>
             <hr>
-            <div :class="[noClass, cssClass, borderBlue]">Got no class</div>
+            <div :class="[noClass, borderBlue, colorWhite]">Got no class</div>
+            <hr>
+            <div>
+                <!-- Let the user enter a class -->
+                <input type="text" v-model="userClass">
+                <div :class="userClass">User classes</div>
+            </div>
+            <hr>
+            <!-- Let the user enter a class and enter true/false for another class-->
+
+        </div>
+        <hr>
+        <!-- Create a progress bar -->
+        <div>
+            <button @click="startProgress()">Start progress bar</button>
+            <button @click="resetProgress()">Reset progress bar</button>
+            <div class="progress-bar">
+                <div :class="['current-progress']" :style="{width: progress + '%'}"></div>
+            </div>
         </div>
     </div>
     <script>
@@ -47,14 +76,30 @@
             data: {
                 cssClass: 'highlight',
                 noClass: 'no-class',
-                borderBlue: 'borderBlueSolid'
+                borderBlue: 'borderBlueSolid',
+                colorWhite: 'colorWhite',
+                userClass: '',
+                isVisible: true,
+                progress: 0
             },
             methods: {
                 startEffect: function () {
                     var vm = this;
                     setInterval(function () {
                         vm.cssClass = vm.cssClass === 'highlight' ? 'shrink' : 'highlight';
-                    }, 5000)
+                    }, 2000)
+                },
+                startProgress: function () {
+                    var vm = this,
+                        progressInterval = setInterval(function () {
+                            if (vm.progress > 99) {
+                                return clearInterval(progressInterval);
+                            }
+                            vm.progress++;
+                        }, 100);
+                },
+                resetProgress: function () {
+                    this.progress = 0;
                 }
             }
         });
