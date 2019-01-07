@@ -27,17 +27,11 @@ new Vue({
                 case 'attack':
                 case 'specialAttack':
                     let opponentHealth = this.players[opponentIndex].health - this.battleActions[action];
-                    if (opponentHealth <= 0) {
-                        opponentHealth = 0;
-                    }
-                    this.players[opponentIndex].health = opponentHealth;
+                    this.players[opponentIndex].health = opponentHealth <= 0 ? 0 : opponentHealth;
                     break;
                 case 'heal':
                     let playerHealth = this.players[currentPlayer].health + this.battleActions[action];
-                    if (playerHealth > 100) {
-                        playerHealth = 100;
-                    }
-                    this.players[currentPlayer].health = playerHealth;
+                    this.players[currentPlayer].health = playerHealth > 100 ? 100 : playerHealth;
                     break;
             }
             this.battleLog.push(
