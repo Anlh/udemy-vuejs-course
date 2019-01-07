@@ -1,36 +1,64 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Monster game</title>
+    <title>Practice Vue - Monster Game Mini Project</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-    
+    <style>
+        .game-battle-log p:nth-child(odd) {
+            background-color: aquamarine;
+        }
+        .game-battle-log p:nth-child(even) {
+            background-color: red;
+        }
+    </style>
 </head>
+
 <body>
+    <!-- 
+        TODO:
+        - Use some css framework or styles to make the game prettier
+        - Give some feedback to the user when he looses/wins the game
+        - Anything u can imagine... use ur creativity...
+     -->
     <div id="app">
         <!-- Vue code goes here -->
         <div class="game-arena">
             <div v-for="player in players">
                 <h3>{{player.name}}</h3>
                 <div class="outer-progress-bar">
-                    <div class="inner-progress-bar">100%</div>
+                    <div class="inner-progress-bar">{{player.health}}%</div>
                 </div>
             </div>
         </div>
         <div class="game-controllers">
-            <!-- Start new game button -->
-            <!-- Attack button -->
-            <!-- Special attack button -->
-            <!-- Heal button -->
-            <!-- Give up button -->
+            <div v-if="newGame" class="new-game-container">
+                <!-- Start new game button -->
+                <button @click="newGame = !newGame">Start New Game</button>
+            </div>
+            <div v-if="!newGame" class="controllers-container">
+                <!-- Attack button -->
+                <button @click="playerAction('attack', 0)">Attack</button>
+                <!-- Special attack button -->
+                <button @click="playerAction('specialAttack', 0)">Special Attack</button>
+                <!-- Heal button -->
+                <button @click="playerAction('heal', 0)">HEAL</button>
+                <!-- Give up button -->
+                <button @click="reset()">Give Up</button>
+            </div>
         </div>
         <div class="game-battle-log">
             <!-- Log of actions from the players -->
+            <template v-for="log in battleLog">
+                <p>{{log}}</p>
+            </template>
         </div>
     </div>
     <script src="main.js"></script>
 </body>
+
 </html>
