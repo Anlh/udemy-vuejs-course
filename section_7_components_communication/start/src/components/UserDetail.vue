@@ -2,8 +2,9 @@
   <div class="component">
     <h3>You may view the User Details here</h3>
     <p>Many Details</p>
-    <p>User Name: {{switchName()}}</p>
-    <button>Switch the name assign in the parent from the children's component</button>
+    <p>User Name: {{name}}</p>
+    <!-- <button>Switch the name assign in the parent from the children's component</button> -->
+    <button @click="resetName">Reset name</button>
   </div>
 </template>
 
@@ -11,7 +12,8 @@
 export default {
   props: {
     name: {
-      type: String
+      type: String,
+      required: true
     }
   },
   methods: {
@@ -20,6 +22,10 @@ export default {
         .split("")
         .reverse()
         .join("");
+    },
+    resetName() {
+      this.name = 'Hatori';
+      this.$emit('nameWasReset', this.name);
     }
   },
   created() {
